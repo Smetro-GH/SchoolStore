@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from .models import Product
 
 views = Blueprint('views', __name__)
 
@@ -12,6 +13,7 @@ def profile():
 
 @views.route('/tienda')
 def buy():
+    products = Product.query.all()
     return render_template("Tienda.html")
 
 @views.route('/carrito')
