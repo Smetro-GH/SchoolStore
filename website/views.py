@@ -14,7 +14,7 @@ def profile():
 @views.route('/tienda')
 def buy():
     products = Product.query.all()
-    return render_template("Tienda.html")
+    return render_template("Tienda.html", products=products)
 
 @views.route('/carrito')
 def cart():
