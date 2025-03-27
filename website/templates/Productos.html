@@ -1,11 +1,9 @@
-{% extends "base.html" %}
-{% block title %}Tienda{% endblock %}
+<title>Productos</title>
 
-{%block content%}
-<div class="container mt-4" align="center">
-    <img src="{{ url_for('static', filename='logoAnglo.png') }}" alt="Instituto Anglo moderno" height = "100" width = "100">
+<div class="container mt-4">
     <h1>Instituto Anglo moderno</h1>
 </div>
+
 
 <div class="row mt-4">
     {% for product in products %}
@@ -29,4 +27,3 @@
         </div>
     {% endfor %}
 </div>
-{%endblock%}
