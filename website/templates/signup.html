@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Iniciar Sesion{% endblock %}
+
+{%block content%}
+
+<form method="POST">
+    <h3 align="center">Iniciar Sesion</h3>
+    <div class="form-group">
+        <label for="email"></label>
+        <input
+                type="email"
+               class="form-control"
+                id="email"
+                name="email"
+                required
+                placeholder="Introducir Correo Electronico"
+        >
+        <label for="Username"></label>
+        <input
+                type="text"
+               class="form-control"
+                id="Username"
+                name="Username"
+                required
+                placeholder="Introducir Nombre de Usuario"
+        >
+        <label for="Password1"></label>
+        <input
+                type="text"
+               class="form-control"
+                id="Password1"
+                name="Password1"
+                required
+                placeholder="Introducir Contraseña"
+        >
+        <label for="Password2"></label>
+        <input
+                type="text"
+               class="form-control"
+                id="Password2"
+                name="Password2"
+                required
+                placeholder="Confirmar Contraseña"
+        >
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary" >Enviar</button>
+</form>
+{%endblock%}

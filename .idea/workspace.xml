@@ -5,13 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b7cc40f-aefe-4964-9db6-0a9043cad6c9" name="Changes" comment="Set up base template">
-      <change afterPath="$PROJECT_DIR$/addSampleProduct.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/templates/Productos.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/website/static/logoAnglo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/website/templates/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/website/templates/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/website/templates/signup.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/ArukayInnovationn.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ArukayInnovationn.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/auth.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/templates/Tienda.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/Tienda.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +26,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Flask Main" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -83,8 +87,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\juanf\Desktop\Coding\SchoolStore\website\static" />
-      <recent name="C:\Users\juanf\Desktop\Coding\SchoolStore\website\templates" />
+      <recent name="C:\Users\juanf\Desktop\Programming\ArukayInnovationn\website\static" />
       <recent name="C:\Users\juanf\Desktop\Programming\ArukayInnovationn\website" />
     </key>
   </component>
@@ -109,8 +112,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-PY-243.23654.177" />
-        <option value="bundled-python-sdk-91d3a02ef49d-43b77aa2d136-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.23654.177" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.25659.43" />
+        <option value="bundled-python-sdk-181015f7ab06-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.25659.43" />
       </set>
     </attachedChunks>
   </component>
@@ -125,7 +128,6 @@
       <workItem from="1742340171077" duration="88000" />
       <workItem from="1742340271990" duration="6252000" />
       <workItem from="1742942767657" duration="2510000" />
-      <workItem from="1743099946021" duration="1976000" />
     </task>
     <task id="LOCAL-00001" summary="Set up flask">
       <option name="closed" value="true" />
@@ -166,7 +168,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Set up base template" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ArukayInnovationn$ArukayInnovationn.coverage" NAME="ArukayInnovationn Coverage Results" MODIFIED="1742946478349" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/SchoolStore$ArukayInnovationn.coverage" NAME="ArukayInnovationn Coverage Results" MODIFIED="1743102192656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ArukayInnovationn$ArukayInnovationn.coverage" NAME="ArukayInnovationn Coverage Results" MODIFIED="1743150618444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
