@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}{% if product %}Editar{% else %}Agregar{% endif %} Producto - SchoolStore{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>{% if product %}Editar{% else %}Agregar{% endif %} Producto</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item active">{% if product %}Editar{% else %}Agregar{% endif %} Producto</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre del Producto</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ product.name if product else '' }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" required>{{ product.description if product else '' }}</textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="price" class="form-label">Precio</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control" id="price" name="price" step="0.01" value="{{ product.price if product else '' }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="quantity" class="form-label">Stock</label>
+                                    <input type="number" class="form-control" id="quantity" name="quantity" value="{{ product.quantity if product else '' }}" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Categoría</label>
+                            <select class="form-select" id="category" name="category" required>
+                                <option value="">Selecciona una categoría</option>
+                                <option value="alimento" {% if product and product.category == 'alimento' %}selected{% endif %}>Alimento</option>
+                                <option value="bebida" {% if product and product.category == 'bebida' %}selected{% endif %}>Bebida</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Imagen del Producto</label>
+                            {% if product and product.image_url %}
+                            <div class="mb-2">
+                                <img src="{{ product.image_url }}" alt="{{ product.name }}" style="max-width: 200px; height: auto;">
+                            </div>
+                            {% endif %}
+                            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                            <div class="form-text">Si no se selecciona una nueva imagen, se mantendrá la imagen actual.</div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                {% if product %}Guardar Cambios{% else %}Agregar Producto{% endif %}
+                            </button>
+                            <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

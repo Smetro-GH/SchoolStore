@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout - SchoolStore{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="text-center mb-4">Finalizar Compra</h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Resumen del Pedido</h5>
+                    {% for item in items %}
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-md-2">
+                            {% if item.product.image_url %}
+                            <img src="{{ item.product.image_url }}" class="img-fluid rounded" alt="{{ item.product.name }}">
+                            {% else %}
+                            <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 80px;">
+                                <i class="bi bi-image text-muted"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="mb-1">{{ item.product.name }}</h6>
+                            <p class="text-muted mb-0">${{ "%.2f"|format(item.product.price) }} c/u</p>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <span class="input-group-text">Cantidad</span>
+                                <input type="number" class="form-control" value="{{ item.quantity }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-end">
+                            <span class="h6 mb-0">${{ "%.2f"|format(item.subtotal) }}</span>
+                        </div>
+                    </div>
+                    {% if not loop.last %}
+                    <hr>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Método de Pago</h5>
+                    <form method="POST">
+                        <div class="mb-3">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="payment_method" id="cash" value="cash" required>
+                                <label class="form-check-label" for="cash">
+                                    <i class="bi bi-cash"></i> Pago en Efectivo
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment_method" id="card" value="card" required>
+                                <label class="form-check-label" for="card">
+                                    <i class="bi bi-credit-card"></i> Tarjeta de Crédito/Débito
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            Confirmar Pago
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Resumen de Pago</h5>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal</span>
+                        <span>${{ "%.2f"|format(total) }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>IVA (16%)</span>
+                        <span>${{ "%.2f"|format(total * 0.16) }}</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-3">
+                        <strong>Total</strong>
+                        <strong>${{ "%.2f"|format(total * 1.16) }}</strong>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i>
+                        Recogerás tu pedido en la tienda después de realizar el pago.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

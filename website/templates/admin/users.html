@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Usuarios - SchoolStore{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Usuarios</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Usuarios</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Usuario</th>
+                            <th>Email</th>
+                            <th>Rol</th>
+                            <th>Fecha de Registro</th>
+                            <th>Pedidos</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                <span class="badge {% if user.role == 'admin' %}bg-danger{% else %}bg-primary{% endif %}">
+                                    {{ user.role|title }}
+                                </span>
+                            </td>
+                            <td>{{ user.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
+                            <td>{{ user.orders|length }}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#userModal{{ user.id }}">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <form method="POST" action="{{ url_for('admin.update_user_role', user_id=user.id) }}" class="d-inline">
+                                    <select name="role" class="form-select form-select-sm d-inline-block w-auto" onchange="this.form.submit()">
+                                        <option value="user" {% if user.role == 'user' %}selected{% endif %}>Usuario</option>
+                                        <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Administrador</option>
+                                    </select>
+                                </form>
+                            </td>
+                        </tr>
+
+                        <!-- Modal para ver detalles del usuario -->
+                        <div class="modal fade" id="userModal{{ user.id }}" tabindex="-1">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Detalles del Usuario</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row mb-4">
+                                            <div class="col-md-6">
+                                                <h6>Información Personal</h6>
+                                                <p class="mb-1"><strong>ID:</strong> {{ user.id }}</p>
+                                                <p class="mb-1"><strong>Usuario:</strong> {{ user.username }}</p>
+                                                <p class="mb-1"><strong>Email:</strong> {{ user.email }}</p>
+                                                <p class="mb-1"><strong>Rol:</strong> {{ user.role|title }}</p>
+                                                <p class="mb-1"><strong>Fecha de Registro:</strong> {{ user.created_at.strftime('%d/%m/%Y %H:%M') }}</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6>Estadísticas</h6>
+                                                <p class="mb-1"><strong>Total de Pedidos:</strong> {{ user.orders|length }}</p>
+                                                <p class="mb-1"><strong>Pedidos Completados:</strong> {{ user.orders|selectattr('status', 'equalto', 'completed')|list|length }}</p>
+                                                <p class="mb-1"><strong>Pedidos Pendientes:</strong> {{ user.orders|selectattr('status', 'equalto', 'pending')|list|length }}</p>
+                                                <p class="mb-1"><strong>Total Gastado:</strong> ${{ "%.2f"|format(user.orders|sum(attribute='total_amount')) }}</p>
+                                            </div>
+                                        </div>
+
+                                        <h6>Historial de Pedidos</h6>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Fecha</th>
+                                                        <th>Total</th>
+                                                        <th>Estado</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for order in user.orders %}
+                                                    <tr>
+                                                        <td>#{{ order.id }}</td>
+                                                        <td>{{ order.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
+                                                        <td>${{ "%.2f"|format(order.total_amount) }}</td>
+                                                        <td>
+                                                            <span class="badge {% if order.status == 'completed' %}bg-success{% elif order.status == 'pending' %}bg-warning{% else %}bg-danger{% endif %}">
+                                                                {{ order.status|title }}
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    {% else %}
+                                                    <tr>
+                                                        <td colspan="4" class="text-center">No hay pedidos</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center">No hay usuarios registrados</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

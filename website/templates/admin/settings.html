@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}Configuración - SchoolStore{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Configuración del Sistema</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Configuración</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Configuración General</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('admin.update_settings') }}">
+                        <div class="mb-3">
+                            <label for="store_name" class="form-label">Nombre de la Tienda</label>
+                            <input type="text" class="form-control" id="store_name" name="store_name" value="{{ settings.store_name }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="store_description" class="form-label">Descripción de la Tienda</label>
+                            <textarea class="form-control" id="store_description" name="store_description" rows="3">{{ settings.store_description }}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="contact_email" class="form-label">Email de Contacto</label>
+                            <input type="email" class="form-control" id="contact_email" name="contact_email" value="{{ settings.contact_email }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="contact_phone" class="form-label">Teléfono de Contacto</label>
+                            <input type="tel" class="form-control" id="contact_phone" name="contact_phone" value="{{ settings.contact_phone }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Dirección</label>
+                            <textarea class="form-control" id="address" name="address" rows="2">{{ settings.address }}</textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Configuración de Pagos</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('admin.update_payment_settings') }}">
+                        <div class="mb-3">
+                            <label for="stripe_public_key" class="form-label">Stripe Public Key</label>
+                            <input type="text" class="form-control" id="stripe_public_key" name="stripe_public_key" value="{{ settings.stripe_public_key }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="stripe_secret_key" class="form-label">Stripe Secret Key</label>
+                            <input type="password" class="form-control" id="stripe_secret_key" name="stripe_secret_key" value="{{ settings.stripe_secret_key }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="paypal_client_id" class="form-label">PayPal Client ID</label>
+                            <input type="text" class="form-control" id="paypal_client_id" name="paypal_client_id" value="{{ settings.paypal_client_id }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="paypal_secret" class="form-label">PayPal Secret</label>
+                            <input type="password" class="form-control" id="paypal_secret" name="paypal_secret" value="{{ settings.paypal_secret }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="enable_stripe" name="enable_stripe" {% if settings.enable_stripe %}checked{% endif %}>
+                                <label class="form-check-label" for="enable_stripe">Habilitar Stripe</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="enable_paypal" name="enable_paypal" {% if settings.enable_paypal %}checked{% endif %}>
+                                <label class="form-check-label" for="enable_paypal">Habilitar PayPal</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Configuración de Email</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('admin.update_email_settings') }}">
+                        <div class="mb-3">
+                            <label for="smtp_host" class="form-label">Servidor SMTP</label>
+                            <input type="text" class="form-control" id="smtp_host" name="smtp_host" value="{{ settings.smtp_host }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="smtp_port" class="form-label">Puerto SMTP</label>
+                            <input type="number" class="form-control" id="smtp_port" name="smtp_port" value="{{ settings.smtp_port }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="smtp_username" class="form-label">Usuario SMTP</label>
+                            <input type="text" class="form-control" id="smtp_username" name="smtp_username" value="{{ settings.smtp_username }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="smtp_password" class="form-label">Contraseña SMTP</label>
+                            <input type="password" class="form-control" id="smtp_password" name="smtp_password" value="{{ settings.smtp_password }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="smtp_use_tls" name="smtp_use_tls" {% if settings.smtp_use_tls %}checked{% endif %}>
+                                <label class="form-check-label" for="smtp_use_tls">Usar TLS</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Configuración de Notificaciones</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('admin.update_notification_settings') }}">
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="notify_new_orders" name="notify_new_orders" {% if settings.notify_new_orders %}checked{% endif %}>
+                                <label class="form-check-label" for="notify_new_orders">Notificar nuevos pedidos</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="notify_low_stock" name="notify_low_stock" {% if settings.notify_low_stock %}checked{% endif %}>
+                                <label class="form-check-label" for="notify_low_stock">Notificar stock bajo</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="low_stock_threshold" class="form-label">Umbral de stock bajo</label>
+                            <input type="number" class="form-control" id="low_stock_threshold" name="low_stock_threshold" value="{{ settings.low_stock_threshold }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="notify_order_status" name="notify_order_status" {% if settings.notify_order_status %}checked{% endif %}>
+                                <label class="form-check-label" for="notify_order_status">Notificar cambios de estado de pedidos</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

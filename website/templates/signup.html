@@ -1,49 +1,102 @@
 {% extends "base.html" %}
-{% block title %}Iniciar Sesion{% endblock %}
 
-{%block content%}
+{% block title %}Registro - SchoolStore{% endblock %}
 
-<form method="POST">
-    <h3 align="center">Iniciar Sesion</h3>
-    <div class="form-group">
-        <label for="email"></label>
-        <input
-                type="email"
-               class="form-control"
-                id="email"
-                name="email"
-                required
-                placeholder="Introducir Correo Electronico"
-        >
-        <label for="Username"></label>
-        <input
-                type="text"
-               class="form-control"
-                id="Username"
-                name="username"
-                required
-                placeholder="Introducir Nombre de Usuario"
-        >
-        <label for="Password1"></label>
-        <input
-                type="password"
-               class="form-control"
-                id="Password1"
-                name="password1"
-                required
-                placeholder="Introducir Contraseña"
-        >
-        <label for="Password2"></label>
-        <input
-                type="password"
-               class="form-control"
-                id="Password2"
-                name="password2"
-                required
-                placeholder="Confirmar Contraseña"
-        >
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Crear Cuenta</h2>
+                    <form method="POST" id="signupForm">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                            <div class="invalid-feedback">
+                                Por favor ingrese un correo electrónico válido.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nombre de Usuario</label>
+                            <input type="text" class="form-control" id="username" name="username" required minlength="2">
+                            <div class="invalid-feedback">
+                                El nombre de usuario debe tener al menos 2 caracteres.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" name="password" required minlength="6">
+                            <div class="invalid-feedback">
+                                La contraseña debe tener al menos 6 caracteres.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirm_password" class="form-label">Confirmar Contraseña</label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                            <div class="invalid-feedback">
+                                Las contraseñas no coinciden.
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Registrarse</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-4">
+                        <p>¿Ya tienes una cuenta? <a href="{{ url_for('auth.login') }}">Inicia sesión aquí</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <br />
-    <button type="submit" class="btn btn-primary" >Enviar</button>
-</form>
-{%endblock%}
+</div>
+
+{% block scripts %}
+<script>
+document.getElementById('signupForm').addEventListener('submit', function(event) {
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirm_password');
+    const email = document.getElementById('email');
+    const username = document.getElementById('username');
+    
+    let isValid = true;
+    
+    // Validar email
+    if (!email.value.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+        email.classList.add('is-invalid');
+        isValid = false;
+    } else {
+        email.classList.remove('is-invalid');
+    }
+    
+    // Validar username
+    if (username.value.length < 2) {
+        username.classList.add('is-invalid');
+        isValid = false;
+    } else {
+        username.classList.remove('is-invalid');
+    }
+    
+    // Validar password
+    if (password.value.length < 6) {
+        password.classList.add('is-invalid');
+        isValid = false;
+    } else {
+        password.classList.remove('is-invalid');
+    }
+    
+    // Validar confirmación de password
+    if (password.value !== confirmPassword.value) {
+        confirmPassword.classList.add('is-invalid');
+        isValid = false;
+    } else {
+        confirmPassword.classList.remove('is-invalid');
+    }
+    
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
+</script>
+{% endblock %}
+{% endblock %}

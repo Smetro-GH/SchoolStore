@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - SchoolStore{% endblock %}
+
+{% block content %}
+<div class="container text-center py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <img src="{{ url_for('static', filename='logoAnglo.png') }}" alt="Instituto Anglo moderno" class="img-fluid mb-4" style="max-width: 200px;">
+            <h1 class="display-4 mb-4">Bienvenido a SchoolStore</h1>
+            <p class="lead mb-5">Tu tienda escolar de confianza</p>
+            
+            {% if not current_user.is_authenticated %}
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="bi bi-person-plus display-4 text-primary mb-3"></i>
+                                <h3 class="card-title">Registrarse</h3>
+                                <p class="card-text">Crea una cuenta para comenzar a comprar</p>
+                                <a href="{{ url_for('auth.signup') }}" class="btn btn-primary">Registrarse</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="bi bi-box-arrow-in-right display-4 text-success mb-3"></i>
+                                <h3 class="card-title">Iniciar Sesión</h3>
+                                <p class="card-text">Accede a tu cuenta existente</p>
+                                <a href="{{ url_for('auth.login') }}" class="btn btn-success">Iniciar Sesión</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="bi bi-shield-lock display-4 text-danger mb-3"></i>
+                                <h3 class="card-title">Administrador</h3>
+                                <p class="card-text">Acceso al panel de administración</p>
+                                <a href="{{ url_for('auth.admin_login') }}" class="btn btn-danger">Acceso Admin</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="bi bi-shop display-4 text-primary mb-3"></i>
+                                <h3 class="card-title">Ir a la Tienda</h3>
+                                <p class="card-text">Explora nuestro catálogo de productos</p>
+                                <a href="{{ url_for('views.store') }}" class="btn btn-primary">Ver Tienda</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="bi bi-person-circle display-4 text-success mb-3"></i>
+                                <h3 class="card-title">Mi Perfil</h3>
+                                <p class="card-text">Gestiona tu cuenta y pedidos</p>
+                                <a href="{{ url_for('views.profile') }}" class="btn btn-success">Ver Perfil</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">¿Por qué elegir SchoolStore?</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="text-center">
+                <i class="bi bi-shield-check display-4 text-primary mb-3"></i>
+                <h4>Seguridad Garantizada</h4>
+                <p>Proceso de pago seguro y protección de datos</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="text-center">
+                <i class="bi bi-truck display-4 text-success mb-3"></i>
+                <h4>Entrega Rápida</h4>
+                <p>Recogida inmediata en la tienda</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="text-center">
+                <i class="bi bi-headset display-4 text-info mb-3"></i>
+                <h4>Soporte 24/7</h4>
+                <p>Atención al cliente siempre disponible</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
