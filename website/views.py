@@ -8,7 +8,7 @@ views = Blueprint('views', __name__)
 def profile():
     return render_template("profile.html")
 
-@views.route('/tienda')
+@views.route('/')
 def buy():
     products = Product.query.all()
     return render_template("Tienda.html", products=products)
